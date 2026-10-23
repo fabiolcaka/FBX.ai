@@ -1,0 +1,2458 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FBX.ai — Operational AI Infrastructure</title>
+    <meta name="description" content="Deploy adaptive AI agents that learn, execute, and scale operational tasks across your business." />
+    <meta property="og:title" content="FBX.ai — Operational AI Infrastructure" />
+    <meta property="og:description" content="Deploy adaptive AI agents that learn, execute, and scale operational tasks across your business." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cg transform='rotate(-30 12 12)'%3E%3Ccircle cx='7.3' cy='3.2' r='1.45'/%3E%3Crect x='5.5' y='4.7' width='3.6' height='14.6' rx='1.8'/%3E%3Crect x='14.9' y='4.7' width='3.6' height='14.6' rx='1.8'/%3E%3Ccircle cx='16.7' cy='20.8' r='1.45'/%3E%3C/g%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+
+    <style>
+      /* Force black immediately so the page can never flash white */
+      html, body {
+        background: #000000 !important;
+        color: #ffffff;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url("inter.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Instrument Serif";
+        font-style: italic;
+        font-weight: 400;
+        font-display: swap;
+        src: url("instrument-serif-italic.woff2") format("woff2");
+      }
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      html, body {
+        background: #000000;
+        background: var(--bg, #000000);
+        color: #ffffff;
+        color: var(--text, #ffffff);
+      }
+
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        overflow-x: hidden;
+        position: relative;
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font-family: inherit;
+        border: none;
+        outline: none;
+        background: transparent;
+      }
+
+      :root {
+        --bg: #000000;
+        --text: #ffffff;
+        --muted: #9a9a9a;
+        --stat: #d8d8d8;
+        --border: rgba(255, 255, 255, 0.16);
+        --border-soft: rgba(255, 255, 255, 0.12);
+
+        --logo: 15.5px;
+        --logo-mark: 22px;
+        --nav: 14px;
+        --nav-h: 40px;
+        --btn: 13.5px;
+        --btn-h: 40px;
+        --hero-btn-h: 42px;
+        --h1: 48px;
+        --lede: 15.5px;
+        --badge: 12.5px;
+        --stat-size: 13.5px;
+        --header-y: 22px;
+        --header-x: 40px;
+        --stats-x: 72px;
+        --stats-y: 36px;
+        --hero-gap: 85px;
+        --copy-max: 860px;
+        --lede-max: 470px;
+      }
+
+      /* Entrance keyframes */
+      @keyframes in-scale {
+        0% { opacity: 0; transform: scale(0.84); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+      @keyframes in-soft {
+        0% { opacity: 0; transform: translateY(14px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes in-mask {
+        0% { opacity: 0; transform: translateY(40%); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes in-pop {
+        0% { opacity: 0; transform: scale(0.9); }
+        70% { transform: scale(1.03); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+      @keyframes in-btn {
+        0% { opacity: 0; transform: translateY(18px) scale(0.94); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      @keyframes in-side {
+        0% { opacity: 0; transform: translateX(22px); }
+        100% { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes in-stat {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes in-star {
+        0% { transform: scale(0.2) rotate(-50deg); opacity: 0; }
+        65% { transform: scale(1.2) rotate(8deg); opacity: 1; }
+        100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      }
+      @keyframes in-em {
+        0% { opacity: 0.35; filter: blur(4px); }
+        100% { opacity: 1; filter: blur(0); }
+      }
+      @keyframes in-photo {
+        0% { opacity: 0; transform: scale(1.04); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+
+      /* Appear animation classes */
+      .appear {
+        opacity: 1;
+        animation-duration: 1.05s;
+        animation-fill-mode: both;
+        animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        animation-delay: var(--d, 0.08s);
+      }
+
+      .appear--scale { animation-name: in-scale; }
+      .appear--soft { animation-name: in-soft; }
+      .appear--mask { display: inline-block; animation-name: in-mask; }
+      .appear--pop { animation-name: in-pop; }
+      .appear--btn { animation-name: in-btn; }
+      .appear--side { animation-name: in-side; }
+      .appear--stat { animation-name: in-stat; }
+
+      .is-in {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+        filter: none !important;
+      }
+
+      /* Grain overlay at z-index 100 */
+      .grain {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        pointer-events: none;
+        opacity: 0.035;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      /* Hero photo/video background */
+      .hero-photo {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+        animation: in-photo 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .hero-photo video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        opacity: 1;
+      }
+
+      .hero-photo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.3) 100%);
+      }
+
+      /* Page grid */
+      .page {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+
+      /* Header — 3-column grid */
+      header.header {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: var(--header-y) var(--header-x) 10px;
+        z-index: 50;
+        position: relative;
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        justify-self: start;
+        font-size: var(--logo);
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        color: #ffffff;
+      }
+
+      .logo-suffix {
+        font-weight: 400;
+      }
+
+      /* Center nav — liquid-metal pills */
+      #site-nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-self: center;
+      }
+
+      #site-nav .nav-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--nav-h);
+        padding: 0 18px;
+        border-radius: 7px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid rgba(198, 198, 198, 0.55);
+        background: linear-gradient(105deg, #050505 0%, #2a2a2a 48%, #4a4a4a 100%);
+        color: #f3f3f3;
+        font-size: var(--nav);
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+        transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      }
+
+      #site-nav .nav-link::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.16) 50%, transparent 70%);
+        transform: translateX(-120%);
+        transition: transform 0.6s ease;
+        pointer-events: none;
+      }
+
+      #site-nav .nav-link:hover::before {
+        transform: translateX(120%);
+      }
+
+      #site-nav .nav-link:hover {
+        border-color: rgba(235, 235, 235, 0.9);
+        background: linear-gradient(105deg, #111111 0%, #3a3a3a 45%, #6a6a6a 100%);
+        box-shadow: 0 0 18px rgba(200, 210, 230, 0.18);
+      }
+
+      /* Buttons — liquid glass language */
+      .btn {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--btn-h);
+        padding: 0 16px;
+        border-radius: 6px;
+        font-size: var(--btn);
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, color 0.35s ease, filter 0.35s ease;
+      }
+
+      .btn::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.45) 48%, transparent 76%);
+        transform: translateX(-130%);
+        transition: transform 0.65s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .btn:hover::after {
+        transform: translateX(130%);
+      }
+
+      .btn-solid {
+        background: linear-gradient(180deg, #ffffff 0%, #e7e7e7 48%, #cfcfcf 100%);
+        color: #111111;
+        border: 1px solid #ffffff;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      }
+
+      .btn-solid:hover {
+        background: linear-gradient(180deg, #ffffff 0%, #f3f6ff 42%, #d5def2 100%);
+        border-color: #f2f6ff;
+        box-shadow: inset 0 1px 0 #ffffff, 0 0 22px rgba(186, 208, 255, 0.35), 0 8px 18px rgba(255, 255, 255, 0.12);
+      }
+
+      .header-cta {
+        justify-self: end;
+      }
+
+      .btn-hero {
+        height: var(--hero-btn-h);
+        padding: 0 18px;
+      }
+
+      .btn-hero.btn-solid:hover {
+        box-shadow: inset 0 1px 0 #ffffff, 0 0 26px rgba(186, 208, 255, 0.4), 0 8px 18px rgba(255, 255, 255, 0.14);
+      }
+
+      .btn-ghost-hero {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.5) 46%, rgba(150, 170, 200, 0.1));
+        color: #ffffff;
+        border: 1px solid rgba(198, 198, 198, 0.55);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+
+      .btn-ghost-hero:hover {
+        border-color: rgba(220, 230, 255, 0.8);
+        box-shadow: 0 0 24px rgba(170, 200, 255, 0.28);
+      }
+
+      /* Burger */
+      .burger {
+        display: none;
+      }
+
+      /* Hero section (bottom-centered, NOT vertically centered) */
+      .hero {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 8px 24px var(--hero-gap);
+        min-height: 0;
+      }
+
+      .hero-copy {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: var(--copy-max);
+        width: 100%;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 22px;
+        padding: 9px 15px;
+        border: 0;
+        border-radius: 5px;
+        background: linear-gradient(90deg, #7d7d7d 0%, #2a2a2a 52%, #0a0a0a 100%);
+        color: #f2f2f2;
+        font-size: var(--badge);
+        font-weight: 400;
+        letter-spacing: -0.01em;
+      }
+
+      .badge-star {
+        animation: in-star 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+        transform-origin: center;
+        filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.45));
+      }
+
+      .hero h1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: var(--h1);
+        font-weight: 500;
+        letter-spacing: -0.045em;
+        line-height: 1.12;
+        color: #ffffff;
+      }
+
+      .headline-line {
+        display: block;
+        overflow: hidden;
+        padding: 0.06em 0.15em 0.14em;
+      }
+
+      .hero h1 em {
+        font-family: "Instrument Serif", "Times New Roman", Times, serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 1.08em;
+        letter-spacing: -0.03em;
+        color: #9a9a9a;
+        display: inline-block;
+        animation: in-em 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.72s both;
+      }
+
+      .lede {
+        max-width: var(--lede-max);
+        margin-top: 18px;
+        color: #9a9a9a;
+        font-size: var(--lede);
+        font-weight: 400;
+        line-height: 1.55;
+        letter-spacing: -0.015em;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 26px;
+      }
+
+      /* Stats footer */
+      .stats {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 0 var(--stats-x) var(--stats-y);
+        padding-bottom: max(var(--stats-y), env(safe-area-inset-bottom));
+        color: #d8d8d8;
+        position: relative;
+        z-index: 10;
+      }
+
+      .stat {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font-size: var(--stat-size);
+        letter-spacing: -0.015em;
+        white-space: nowrap;
+      }
+
+      .stat-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: #e8e8e8;
+      }
+
+      .stat-icon-wide {
+        width: 38px;
+        height: 21px;
+        flex-shrink: 0;
+      }
+
+      /* =========================================================
+         INTERACTIVE WORKABLE MODAL DIALOGS & OVERLAYS
+         ========================================================= */
+      .modal-backdrop-layer {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.82);
+        backdrop-filter: blur(32px);
+        -webkit-backdrop-filter: blur(32px);
+        z-index: 200;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px 16px;
+        opacity: 0;
+        transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .modal-backdrop-layer.is-open {
+        display: flex;
+        opacity: 1;
+      }
+
+      .modal-dialog-panel {
+        display: none;
+        width: 100%;
+        max-width: 860px;
+        max-height: calc(100vh - 48px);
+        overflow-y: auto;
+        background: linear-gradient(135deg, rgba(16, 16, 18, 0.98), rgba(6, 6, 8, 0.99));
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 14px;
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        padding: 32px;
+        color: #ffffff;
+        position: relative;
+        animation: modal-enter 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .modal-dialog-panel.active {
+        display: block;
+      }
+
+      @keyframes modal-enter {
+        0% { opacity: 0; transform: scale(0.96) translateY(12px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
+      }
+
+      .modal-dialog-panel::-webkit-scrollbar {
+        width: 6px;
+      }
+      .modal-dialog-panel::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.4);
+      }
+      .modal-dialog-panel::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+      }
+
+      .modal-close-btn {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        width: 34px;
+        height: 34px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.05);
+        color: #ffffff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        z-index: 10;
+      }
+      .modal-close-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.35);
+        transform: rotate(90deg);
+      }
+
+      .modal-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        font-size: 11.5px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #d0d0d0;
+        margin-bottom: 12px;
+      }
+
+      .modal-title {
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+
+      .modal-desc {
+        font-size: 14.5px;
+        color: #9a9a9a;
+        line-height: 1.55;
+        margin-bottom: 26px;
+        max-width: 680px;
+      }
+
+      /* Grid cards inside modals */
+      .modal-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .modal-card-box {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        transition: all 0.25s ease;
+      }
+      .modal-card-box:hover {
+        border-color: rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .modal-card-box h4 {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 6px;
+        color: #f0f0f0;
+      }
+      .modal-card-box p {
+        font-size: 13px;
+        line-height: 1.5;
+        color: #8f8f8f;
+      }
+
+      /* ROI Calculator */
+      .roi-box {
+        background: rgba(18, 18, 22, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 12px;
+        padding: 24px;
+        margin-top: 10px;
+      }
+
+      .slider-control {
+        margin-bottom: 20px;
+      }
+      .slider-label-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13.5px;
+        margin-bottom: 8px;
+        color: #d0d0d0;
+      }
+      .slider-val-tag {
+        font-weight: 600;
+        color: #ffffff;
+        font-variant-numeric: tabular-nums;
+      }
+      .range-slider {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 3px;
+        appearance: none;
+        outline: none;
+        cursor: pointer;
+      }
+      .range-slider::-webkit-slider-thumb {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #ffffff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        cursor: pointer;
+      }
+
+      .roi-output-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 22px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .roi-stat-col {
+        text-align: center;
+      }
+      .roi-stat-col .roi-number {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+        font-variant-numeric: tabular-nums;
+      }
+      .roi-stat-col .roi-lbl {
+        font-size: 11.5px;
+        color: #8c8c8c;
+        margin-top: 4px;
+      }
+
+      /* Architecture pipeline tabs */
+      .pipeline-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+      .pipeline-tab-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        color: #9a9a9a;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+      }
+      .pipeline-tab-btn.active {
+        background: #ffffff;
+        color: #000000;
+        border-color: #ffffff;
+      }
+
+      .terminal-frame {
+        background: #050507;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        overflow: hidden;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12.5px;
+        line-height: 1.6;
+      }
+      .terminal-topbar {
+        background: rgba(255, 255, 255, 0.04);
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .terminal-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .terminal-body {
+        padding: 16px;
+        max-height: 280px;
+        overflow-y: auto;
+        color: #d4d4d4;
+      }
+      .terminal-body pre {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .term-green { color: #4ade80; }
+      .term-yellow { color: #facc15; }
+      .term-blue { color: #60a5fa; }
+      .term-muted { color: #666666; }
+
+      /* FAQ accordions */
+      .faq-search-box {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 14px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: #ffffff;
+        margin-bottom: 20px;
+        outline: none;
+      }
+      .faq-search-box:focus {
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+      .faq-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 16px 0;
+      }
+      .faq-question {
+        width: 100%;
+        text-align: left;
+        font-size: 15px;
+        font-weight: 500;
+        color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+      }
+      .faq-question svg {
+        transition: transform 0.25s ease;
+        opacity: 0.6;
+      }
+      .faq-item.open .faq-question svg {
+        transform: rotate(180deg);
+        opacity: 1;
+      }
+      .faq-answer {
+        display: none;
+        padding-top: 10px;
+        font-size: 13.5px;
+        line-height: 1.6;
+        color: #9a9a9a;
+      }
+      .faq-item.open .faq-answer {
+        display: block;
+      }
+
+      /* Pricing toggle & tiers */
+      .pricing-toggle-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 26px;
+        font-size: 13.5px;
+      }
+      .billing-toggle-btn {
+        width: 44px;
+        height: 24px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.2);
+        position: relative;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .billing-toggle-btn.annual {
+        background: #ffffff;
+      }
+      .billing-toggle-knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #000000;
+        transition: transform 0.2s ease;
+      }
+      .billing-toggle-btn.annual .billing-toggle-knob {
+        transform: translateX(20px);
+        background: #000000;
+      }
+      .save-tag {
+        font-size: 11px;
+        padding: 2px 7px;
+        background: rgba(74, 222, 128, 0.15);
+        color: #4ade80;
+        border-radius: 4px;
+        border: 1px solid rgba(74, 222, 128, 0.3);
+      }
+
+      .pricing-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .pricing-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        transition: all 0.25s ease;
+      }
+      .pricing-card.featured {
+        border-color: rgba(255, 255, 255, 0.45);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+        box-shadow: 0 0 24px rgba(255, 255, 255, 0.08);
+      }
+      .tier-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #e0e0e0;
+        margin-bottom: 6px;
+      }
+      .tier-price {
+        font-size: 28px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 14px;
+        font-variant-numeric: tabular-nums;
+      }
+      .tier-period {
+        font-size: 12px;
+        font-weight: 400;
+        color: #8c8c8c;
+      }
+      .tier-features {
+        list-style: none;
+        margin-bottom: 24px;
+        font-size: 12.5px;
+        line-height: 1.6;
+        color: #9a9a9a;
+      }
+      .tier-features li {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .tier-features li svg {
+        color: #4ade80;
+        flex-shrink: 0;
+      }
+
+      /* Onboarding form */
+      .form-step {
+        display: none;
+      }
+      .form-step.active {
+        display: block;
+      }
+      .stepper-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+      .step-pill {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #666666;
+        padding: 4px 10px;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .step-pill.active {
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .step-pill.done {
+        color: #4ade80;
+        border-color: rgba(74, 222, 128, 0.3);
+      }
+
+      .input-group {
+        margin-bottom: 18px;
+      }
+      .input-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: #d0d0d0;
+        margin-bottom: 8px;
+      }
+      .input-text {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 14px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+      .input-text:focus {
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+
+      .integration-pills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .integ-btn {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.03);
+        color: #9a9a9a;
+        font-size: 13px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .integ-btn.selected {
+        border-color: #ffffff;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+      }
+
+      /* Simulator styles */
+      .scenario-picker {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .scenario-card {
+        padding: 14px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.03);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .scenario-card.active {
+        border-color: #ffffff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .scenario-card h5 {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #f0f0f0;
+        margin-bottom: 4px;
+      }
+      .scenario-card p {
+        font-size: 11.5px;
+        color: #888888;
+        line-height: 1.4;
+      }
+
+      .sim-gate-box {
+        margin-top: 14px;
+        padding: 14px;
+        border-radius: 8px;
+        background: rgba(250, 204, 21, 0.08);
+        border: 1px solid rgba(250, 204, 21, 0.3);
+        display: none;
+      }
+      .sim-gate-box.visible {
+        display: block;
+      }
+
+      /* Breakpoints */
+
+      /* ≥1600 */
+      @media (min-width: 1600px) {
+        :root {
+          --logo: 17px;
+          --logo-mark: 24px;
+          --nav: 15px;
+          --nav-h: 44px;
+          --btn: 15px;
+          --btn-h: 44px;
+          --hero-btn-h: 48px;
+          --h1: 64px;
+          --lede: 18px;
+          --badge: 13.5px;
+          --stat-size: 15px;
+          --header-y: 28px;
+          --header-x: 64px;
+          --stats-x: 96px;
+          --stats-y: 44px;
+          --copy-max: 980px;
+          --lede-max: 540px;
+        }
+        #site-nav .nav-link { padding: 0 20px; }
+        .badge { margin-bottom: 26px; }
+        .lede { margin-top: 22px; }
+        .hero-actions { margin-top: 30px; gap: 12px; }
+        .stat-icon { width: 22px; height: 22px; }
+        .stat-icon-wide { width: 45px; height: 24px; }
+      }
+
+      /* ≥1920 */
+      @media (min-width: 1920px) {
+        :root {
+          --logo: 18px;
+          --logo-mark: 26px;
+          --nav: 16px;
+          --nav-h: 48px;
+          --btn: 16px;
+          --btn-h: 48px;
+          --hero-btn-h: 52px;
+          --h1: 76px;
+          --lede: 20px;
+          --badge: 14.5px;
+          --stat-size: 16px;
+          --header-y: 32px;
+          --header-x: 80px;
+          --stats-x: 120px;
+          --stats-y: 52px;
+          --copy-max: 1120px;
+          --lede-max: 620px;
+        }
+        #site-nav { gap: 10px; }
+        #site-nav .nav-link { padding: 0 22px; }
+        .btn { padding: 0 22px; }
+        .badge { padding: 10px 15px; }
+        .stat-icon-wide { width: 48px; height: 26px; }
+      }
+
+      /* ≥2560 */
+      @media (min-width: 2560px) {
+        :root {
+          --h1: 88px;
+          --lede: 22px;
+          --header-x: 120px;
+          --stats-x: 160px;
+          --copy-max: 1280px;
+          --lede-max: 680px;
+        }
+      }
+
+      /* 1280–1599 */
+      @media (min-width: 1280px) and (max-width: 1599px) {
+        :root {
+          --h1: 54px;
+          --lede: 16px;
+          --header-x: 48px;
+          --stats-x: 80px;
+          --copy-max: 900px;
+        }
+      }
+
+      /* 901–1279 */
+      @media (min-width: 901px) and (max-width: 1279px) {
+        :root {
+          --logo: 15px;
+          --nav: 13px;
+          --nav-h: 36px;
+          --btn: 13px;
+          --btn-h: 38px;
+          --hero-btn-h: 40px;
+          --h1: 42px;
+          --lede: 15px;
+          --badge: 12px;
+          --stat-size: 12.5px;
+          --header-y: 16px;
+          --header-x: 28px;
+          --stats-x: 36px;
+          --stats-y: 28px;
+          --hero-gap: 64px;
+          --copy-max: 760px;
+          --lede-max: 440px;
+        }
+        #site-nav .nav-link { padding: 0 14px; }
+        .badge { margin-bottom: 16px; }
+        .lede { margin-top: 14px; }
+        .hero-actions { margin-top: 20px; }
+      }
+
+      /* ≥901 and max-height 850 */
+      @media (min-width: 901px) and (max-height: 850px) {
+        :root {
+          --header-y: 14px;
+          --stats-y: 24px;
+          --hero-gap: 48px;
+          --h1: 40px;
+        }
+        .badge { margin-bottom: 12px; }
+        .lede { margin-top: 12px; }
+        .hero-actions { margin-top: 16px; }
+      }
+
+      /* ≥901 and max-height 720 */
+      @media (min-width: 901px) and (max-height: 720px) {
+        :root {
+          --h1: 34px;
+          --lede: 14px;
+          --hero-gap: 32px;
+          --stats-y: 18px;
+          --nav-h: 30px;
+          --btn-h: 34px;
+          --hero-btn-h: 36px;
+        }
+        .badge { margin-bottom: 8px; }
+      }
+
+      /* ≥901 desktop lock */
+      @media (min-width: 901px) {
+        html, body {
+          height: 100%;
+          overflow: hidden;
+        }
+        .page {
+          height: 100vh;
+          height: 100dvh;
+          overflow: hidden;
+        }
+        .burger {
+          display: none !important;
+        }
+        .menu-backdrop {
+          display: none !important;
+        }
+      }
+
+      /* ≤900 phone */
+      @media (max-width: 900px) {
+        html, body {
+          height: auto;
+          overflow-y: auto;
+        }
+        .page {
+          min-height: 100vh;
+          min-height: 100dvh;
+        }
+        header.header {
+          grid-template-columns: 1fr auto auto;
+          gap: 8px;
+          padding-top: max(var(--header-y), env(safe-area-inset-top));
+          padding-left: max(var(--header-x), env(safe-area-inset-left));
+          padding-right: max(var(--header-x), env(safe-area-inset-right));
+        }
+        .logo, .header-cta, .burger {
+          z-index: 80;
+        }
+        .burger {
+          display: grid !important;
+          place-content: center;
+          width: 42px;
+          height: 42px;
+          border-radius: 6px;
+          border: 1px solid var(--border);
+          background: rgba(8, 8, 8, 0.55);
+          cursor: pointer;
+          transition: border-color 0.25s ease, background 0.25s ease;
+        }
+        .burger:hover {
+          border-color: rgba(255, 255, 255, 0.32);
+          background: rgba(255, 255, 255, 0.05);
+        }
+        .burger-bar {
+          display: block;
+          width: 16px;
+          height: 1.5px;
+          background: #ffffff;
+          border-radius: 1px;
+          transition: transform 0.25s ease, opacity 0.2s ease;
+        }
+        .burger-bar + .burger-bar {
+          margin-top: 5px;
+        }
+        body.menu-open {
+          overflow: hidden;
+        }
+        body.menu-open .burger-bar:nth-child(1) {
+          transform: translateY(6.5px) rotate(45deg);
+        }
+        body.menu-open .burger-bar:nth-child(2) {
+          opacity: 0;
+        }
+        body.menu-open .burger-bar:nth-child(3) {
+          transform: translateY(-6.5px) rotate(-45deg);
+        }
+        .menu-backdrop {
+          display: block;
+          position: fixed;
+          inset: 0;
+          z-index: 40;
+          background: rgba(8, 8, 8, 0.42);
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.28s ease, visibility 0.28s ease;
+        }
+        body.menu-open .menu-backdrop {
+          opacity: 1;
+          visibility: visible;
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+        }
+        #site-nav {
+          display: flex;
+          position: fixed;
+          inset: 0;
+          z-index: 45;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 12px;
+          background: transparent;
+          padding: 96px 22px 32px;
+          padding-top: max(96px, calc(env(safe-area-inset-top) + 88px));
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transition: opacity 0.28s ease, visibility 0.28s ease;
+        }
+        body.menu-open #site-nav {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+        }
+        #site-nav .nav-link {
+          width: 100%;
+          height: 56px;
+          font-size: 19px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .hero {
+          padding: 20px 20px 64px;
+          align-items: flex-end;
+        }
+        .hero-copy {
+          max-width: 100%;
+        }
+        .lede {
+          max-width: 100%;
+        }
+        .stats {
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          white-space: normal;
+        }
+        :root {
+          --logo: 16px;
+          --btn: 15px;
+          --btn-h: 46px;
+          --hero-btn-h: 48px;
+          --h1: 36px;
+          --lede: 16.5px;
+          --badge: 13.5px;
+          --stat-size: 15px;
+          --header-y: 16px;
+          --header-x: 18px;
+          --stats-x: 20px;
+          --stats-y: 28px;
+          --hero-gap: 36px;
+        }
+
+        .modal-grid-2, .pricing-cards-grid, .scenario-picker, .integration-pills-grid {
+          grid-template-columns: 1fr;
+        }
+        .roi-output-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .modal-dialog-panel {
+          padding: 22px 18px;
+        }
+      }
+
+      /* ≤560 */
+      @media (max-width: 560px) {
+        :root {
+          --h1: 34px;
+          --lede: 16px;
+          --header-x: 16px;
+        }
+        .hero-actions {
+          flex-direction: column;
+          width: 100%;
+        }
+        .hero-actions .btn {
+          width: 100%;
+        }
+      }
+
+      /* prefers-reduced-motion */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          transition: none !important;
+          animation: none !important;
+        }
+        .appear, .hero-photo, .hero h1 em, .badge-star {
+          opacity: 1 !important;
+          transform: none !important;
+          clip-path: none !important;
+          filter: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="background:#000;color:#fff">
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="hero-photo" aria-hidden="true">
+      <video autoplay loop muted playsinline preload="auto">
+        <source src="hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4" type="video/mp4" />
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="page">
+      <div class="menu-backdrop" aria-hidden="true"></div>
+
+      <header class="header">
+        <a href="#top" class="logo appear appear--scale" style="--d: 0.08s" aria-label="FBX.ai">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <g transform="rotate(-30 12 12)">
+              <circle cx="7.3" cy="3.2" r="1.45" />
+              <rect x="5.5" y="4.7" width="3.6" height="14.6" rx="1.8" />
+              <rect x="14.9" y="4.7" width="3.6" height="14.6" rx="1.8" />
+              <circle cx="16.7" cy="20.8" r="1.45" />
+            </g>
+          </svg>
+          <span>FBX<span class="logo-suffix">.ai</span></span>
+        </a>
+
+        <nav id="site-nav" aria-label="Primary">
+          <a href="#benefits" class="nav-link appear appear--scale" style="--d: 0.16s">Benefits</a>
+          <a href="#how-it-works" class="nav-link appear appear--soft" style="--d: 0.28s">How It Works</a>
+          <a href="#faqs" class="nav-link appear appear--scale" style="--d: 0.40s">FAQs</a>
+          <a href="#pricing" class="nav-link appear appear--soft" style="--d: 0.52s">Pricing</a>
+        </nav>
+
+        <a href="#start" class="btn btn-solid header-cta appear appear--scale" style="--d: 0.34s">Start for Free</a>
+
+        <button class="burger appear appear--scale" style="--d: 0.34s" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu" type="button">
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
+        </button>
+      </header>
+
+      <main class="hero" id="top">
+        <div class="hero-copy">
+          <div class="badge appear appear--pop" style="--d: 0.22s">
+            <svg class="badge-star" width="18" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+              <path d="M12 2.6C12.55 2.6 12.88 3.15 13.08 4.7c.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C3.15 12.88 2.6 12.55 2.6 12s.55-.88 2.1-1.08c4.7-.62 5.6-1.52 6.22-6.22C11.12 3.15 11.45 2.6 12 2.6Z" />
+            </svg>
+            <span>Operational AI Infrastructure</span>
+          </div>
+
+          <h1>
+            <span class="headline-line"><span class="appear appear--mask" style="--d: 0.42s">Train <em>AI agents</em> on your</span></span>
+            <span class="headline-line"><span class="appear appear--mask" style="--d: 0.62s">workflows in minutes.</span></span>
+          </h1>
+
+          <p class="lede appear appear--soft" style="--d: 0.82s; animation-duration: 1.25s">
+            Deploy adaptive AI agents that learn, execute, and scale operational tasks across your business.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#start" class="btn btn-solid btn-hero appear appear--btn" style="--d: 0.96s">Start for Free</a>
+            <a href="#demo" class="btn btn-ghost-hero btn-hero appear appear--side" style="--d: 1.10s">See it in action</a>
+          </div>
+        </div>
+      </main>
+
+      <footer class="stats">
+        <div class="stat appear appear--stat" style="--d: 1.12s">
+          <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <defs>
+              <linearGradient id="pillGrad1" x1="3" y1="2" x2="14" y2="22" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.38" />
+                <stop offset="100%" stop-color="#3a3a3a" stop-opacity="0.62" />
+              </linearGradient>
+              <linearGradient id="pillGrad2" x1="13" y1="2" x2="24" y2="22" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#3a3a3a" stop-opacity="0.38" />
+                <stop offset="100%" stop-color="#ffffff" stop-opacity="0.62" />
+              </linearGradient>
+            </defs>
+            <rect x="3.4" y="2.6" width="7.2" height="18.8" rx="3.6" fill="url(#pillGrad1)" />
+            <rect x="13.4" y="2.6" width="7.2" height="18.8" rx="3.6" fill="url(#pillGrad2)" />
+            <rect x="9.2" y="10.9" width="5.6" height="2.2" rx="1.1" fill="#4a4a4a" />
+          </svg>
+          <span>4.2M+ workflows automated</span>
+        </div>
+
+        <div class="stat appear appear--stat" style="--d: 1.28s">
+          <svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2.4" y="2.4" width="19.2" height="19.2" rx="6.2" fill="#ffffff" />
+            <path d="M12 7.1v7.4" stroke="#111111" stroke-width="1.85" stroke-linecap="round" />
+            <path d="M8.15 12.35L12 16.2l3.85-3.85" stroke="#111111" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          </svg>
+          <span>92% reduction in manual operations</span>
+        </div>
+
+        <div class="stat appear appear--stat" style="--d: 1.44s">
+          <svg class="stat-icon-wide" viewBox="0 0 40 22" aria-hidden="true">
+            <g>
+              <circle cx="10.2" cy="11" r="9.2" fill="#2b2b2b" />
+              <polygon points="7.0,5.8 8.6,8.2 6.6,8.4" fill="#2b2b2b" />
+              <polygon points="13.4,5.8 11.8,8.2 13.8,8.4" fill="#2b2b2b" />
+              <ellipse cx="10.2" cy="12.1" rx="4.15" ry="3.7" fill="#f4f4f4" />
+              <circle cx="8.9" cy="11.5" r="0.7" fill="#1a1a1a" />
+              <circle cx="11.5" cy="11.5" r="0.7" fill="#1a1a1a" />
+            </g>
+            <g>
+              <circle cx="20.2" cy="11" r="9.2" fill="#ffffff" />
+              <circle cx="17.6" cy="10" r="1.7" fill="#111111" />
+              <circle cx="22.8" cy="10" r="1.7" fill="#111111" />
+              <ellipse cx="20.2" cy="11.6" rx="1.1" ry="0.8" fill="#111111" />
+              <path d="M17.4 13.5 Q20.2 15.6 23 13.5" stroke="#111111" stroke-width="1.2" fill="none" stroke-linecap="round" />
+            </g>
+            <g>
+              <circle cx="30.2" cy="11" r="9.2" fill="#f26b1d" />
+              <text x="30.2" y="15.1" font-family="'Inter', sans-serif" font-weight="700" font-size="12.5" fill="#ffffff" text-anchor="middle">e</text>
+            </g>
+          </svg>
+          <span>180+ operational teams onboarded</span>
+        </div>
+      </footer>
+    </div>
+
+    <!-- =========================================================
+         MODALS CONTAINER & DIALOGS
+         ========================================================= -->
+    <div id="modal-container" class="modal-backdrop-layer" aria-modal="true" role="dialog">
+      <!-- 1. BENEFITS MODAL -->
+      <div id="modal-benefits" class="modal-dialog-panel">
+        <button class="modal-close-btn" aria-label="Close dialog" type="button">✕</button>
+        <span class="modal-tag">Operational Advantage</span>
+        <h2 class="modal-title">Autonomous Precision at Scale</h2>
+        <p class="modal-desc">
+          FBX.ai transforms multi-step, error-prone manual back-office tasks into deterministic, self-healing operational intelligence with instant latency.
+        </p>
+
+        <div class="modal-grid-2">
+          <div class="modal-card-box">
+            <h4>99.4% Autonomous Execution</h4>
+            <p>Adaptive agents dynamically resolve API discrepancies, schema variations, and network delays without human intervention.</p>
+          </div>
+          <div class="modal-card-box">
+            <h4>SOC2 Type II & Zero-Training Guarantee</h4>
+            <p>Every operational transaction runs in a cryptographic sandbox. Customer telemetry is never used to train global model weights.</p>
+          </div>
+          <div class="modal-card-box">
+            <h4>Deterministic Approval Gates</h4>
+            <p>Set custom threshold rules (e.g. transactions > $10,000) for one-click human verification via Slack, email, or webhook.</p>
+          </div>
+          <div class="modal-card-box">
+            <h4>Sub-Second Action Latency</h4>
+            <p>Optimized execution runtimes trigger ERP, database, and infrastructure writes in under 650ms end-to-end.</p>
+          </div>
+        </div>
+
+        <div class="roi-box">
+          <h3 style="font-size:16px;font-weight:600;margin-bottom:14px;color:#fff;">Interactive ROI Calculator</h3>
+          <div class="slider-control">
+            <div class="slider-label-row">
+              <span>Monthly Operational Tasks</span>
+              <span id="slider-tasks-val" class="slider-val-tag">45,000</span>
+            </div>
+            <input type="range" id="slider-tasks" class="range-slider" min="5000" max="300000" step="5000" value="45000" />
+          </div>
+          <div class="slider-control">
+            <div class="slider-label-row">
+              <span>Average Manual Handling Time</span>
+              <span id="slider-time-val" class="slider-val-tag">8 mins</span>
+            </div>
+            <input type="range" id="slider-time" class="range-slider" min="2" max="30" step="1" value="8" />
+          </div>
+
+          <div class="roi-output-grid">
+            <div class="roi-stat-col">
+              <div id="calc-hours" class="roi-number">5,520 hrs</div>
+              <div class="roi-lbl">Hours Saved Monthly</div>
+            </div>
+            <div class="roi-stat-col">
+              <div id="calc-savings" class="roi-number" style="color:#4ade80;">$303,600</div>
+              <div class="roi-lbl">Est. Monthly Cost Reduction</div>
+            </div>
+            <div class="roi-stat-col">
+              <div class="roi-number" style="color:#60a5fa;">14.2x</div>
+              <div class="roi-lbl">Operational Throughput Speedup</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;display:flex;justify-content:flex-end;">
+          <a href="#start" class="btn btn-solid" style="padding:0 22px;height:42px;">Deploy Agent Sandbox</a>
+        </div>
+      </div>
+
+      <!-- 2. HOW IT WORKS MODAL -->
+      <div id="modal-how-it-works" class="modal-dialog-panel">
+        <button class="modal-close-btn" aria-label="Close dialog" type="button">✕</button>
+        <span class="modal-tag">System Architecture</span>
+        <h2 class="modal-title">How FBX.ai Works</h2>
+        <p class="modal-desc">
+          A four-stage operational pipeline combining high-dimensional context mapping, deterministic validation, and atomic tool execution.
+        </p>
+
+        <div class="pipeline-tabs">
+          <button class="pipeline-tab-btn active" data-tab="step1">1. Ingest & Telemetry</button>
+          <button class="pipeline-tab-btn" data-tab="step2">2. Context Graph</button>
+          <button class="pipeline-tab-btn" data-tab="step3">3. Verification Gate</button>
+          <button class="pipeline-tab-btn" data-tab="step4">4. Atomic Execution</button>
+        </div>
+
+        <div class="terminal-frame">
+          <div class="terminal-topbar">
+            <div class="terminal-dot" style="background:#ef4444;"></div>
+            <div class="terminal-dot" style="background:#eab308;"></div>
+            <div class="terminal-dot" style="background:#22c55e;"></div>
+            <span id="pipeline-status-text" style="font-size:11px;color:#888;margin-left:6px;">stage: telemetry_stream_active</span>
+          </div>
+          <div id="pipeline-code-view" class="terminal-body">
+            <pre><span class="term-blue">// 1. Telemetry Ingestion</span>
+{
+  <span class="term-yellow">"event_id"</span>: <span class="term-green">"evt_849204_erp_sync"</span>,
+  <span class="term-yellow">"source"</span>: <span class="term-green">"NetSuite Enterprise REST Hook"</span>,
+  <span class="term-yellow">"payload"</span>: {
+    <span class="term-yellow">"invoice_num"</span>: <span class="term-green">"INV-2026-9042"</span>,
+    <span class="term-yellow">"supplier_id"</span>: <span class="term-green">"SUP_ACME_GLOBAL"</span>,
+    <span class="term-yellow">"line_items_total"</span>: 18450.00,
+    <span class="term-yellow">"discrepancy_detected"</span>: <span class="term-yellow">true</span>,
+    <span class="term-yellow">"delta"</span>: -420.50
+  },
+  <span class="term-yellow">"ingest_latency_ms"</span>: 14.2
+}</pre>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;font-size:13.5px;color:#a0a0a0;line-height:1.5;">
+          <strong style="color:#fff;" id="pipeline-stage-title">Stage 1: Continuous Event Streaming</strong>
+          <p id="pipeline-stage-desc" style="margin-top:4px;">
+            Agents hook into your existing Kafka topics, Webhooks, Postgres WAL replication, or REST endpoints to monitor operational health in real time without polling overhead.
+          </p>
+        </div>
+
+        <div style="margin-top:24px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12px;color:#777;">SOC2 Type II certified execution</span>
+          <a href="#demo" class="btn btn-solid" style="padding:0 20px;height:40px;">Launch Live Simulator</a>
+        </div>
+      </div>
+
+      <!-- 3. FAQS MODAL -->
+      <div id="modal-faqs" class="modal-dialog-panel">
+        <button class="modal-close-btn" aria-label="Close dialog" type="button">✕</button>
+        <span class="modal-tag">Knowledge Base</span>
+        <h2 class="modal-title">Frequently Asked Questions</h2>
+        <p class="modal-desc">
+          Everything you need to know about FBX.ai security, models, SLA, and enterprise deployment.
+        </p>
+
+        <input type="text" id="faq-search" class="faq-search-box" placeholder="Search questions (e.g. security, models, SLA)..." />
+
+        <div id="faq-list">
+          <div class="faq-item open">
+            <button class="faq-question" type="button">
+              <span>How does FBX.ai eliminate LLM hallucinations in production?</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div class="faq-answer">
+              FBX.ai uses constrained decoding and strict deterministic verification gates. Before any API mutation is issued, the agent's proposed action is validated against strict JSON schemas, business logic assertion rules, and idempotency keys to ensure zero invalid operations.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Does FBX.ai train models on our confidential enterprise data?</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div class="faq-answer">
+              Never. All tenant telemetry runs inside isolated enclaves with zero data retention. Your payloads, database snapshots, and workflow histories remain 100% strictly confidential and compliant with GDPR, HIPAA, and SOC2 Type II standards.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Which foundational models power the agents?</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div class="faq-answer">
+              FBX.ai is fully model-agnostic. We route dynamic reasoning tasks through Google Gemini 2.5 Flash / Pro, Anthropic Claude 3.7 Sonnet, OpenAI GPT-4o, and fine-tuned open-weight models (DeepSeek-R1 / Llama 3) hosted in private VPCs.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>How long does it take to deploy our first agent?</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div class="faq-answer">
+              Most engineering and operations teams deploy their first automated workflow within 15 minutes using our pre-built connectors (Salesforce, NetSuite, Postgres, Slack, Jira, Stripe) or standard OpenAPI specifications.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Can we run FBX.ai within our own AWS, GCP, or Azure VPC?</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div class="faq-answer">
+              Yes! Our Enterprise tier includes self-hosted Kubernetes Helm charts and terraform recipes to run the entire FBX.ai control plane and agent execution workers inside your sovereign cloud environment.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. PRICING MODAL -->
+      <div id="modal-pricing" class="modal-dialog-panel">
+        <button class="modal-close-btn" aria-label="Close dialog" type="button">✕</button>
+        <span class="modal-tag">Transparent Pricing</span>
+        <h2 class="modal-title">Predictable Plans for Modern Teams</h2>
+        <p class="modal-desc">
+          Scale from initial agent prototyping to high-concurrency enterprise operational infrastructure.
+        </p>
+
+        <div class="pricing-toggle-wrap">
+          <span id="lbl-monthly" style="color:#ffffff;font-weight:600;">Monthly Billing</span>
+          <div id="pricing-toggle" class="billing-toggle-btn" role="switch" aria-checked="false">
+            <div class="billing-toggle-knob"></div>
+          </div>
+          <span id="lbl-annual" style="color:#9a9a9a;">Annual Billing</span>
+          <span class="save-tag">SAVE 20%</span>
+        </div>
+
+        <div class="pricing-cards-grid">
+          <div class="pricing-card">
+            <div>
+              <div class="tier-name">Developer / Sandbox</div>
+              <div class="tier-price">$0 <span class="tier-period">/ month</span></div>
+              <ul class="tier-features">
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 10,000 actions / mo</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 3 Active workflows</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Community Slack & docs</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Standard latency</li>
+              </ul>
+            </div>
+            <button class="btn btn-ghost-hero plan-select-btn" data-plan="Developer" style="width:100%;height:38px;">Start Free</button>
+          </div>
+
+          <div class="pricing-card featured">
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="tier-name" style="color:#ffffff;">Operational Scale</div>
+                <span class="modal-tag" style="margin:0;font-size:10px;padding:2px 6px;">POPULAR</span>
+              </div>
+              <div class="tier-price" id="pro-price-val">$490 <span class="tier-period">/ month</span></div>
+              <ul class="tier-features">
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 250,000 actions / mo</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Unlimited workflows</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Human Approval Slack bot</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 99.9% Uptime SLA</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> SOC2 Type II verification</li>
+              </ul>
+            </div>
+            <button class="btn btn-solid plan-select-btn" data-plan="Operational Scale" style="width:100%;height:38px;">Select Scale Plan</button>
+          </div>
+
+          <div class="pricing-card">
+            <div>
+              <div class="tier-name">Enterprise Sovereign</div>
+              <div class="tier-price">Custom <span class="tier-period">/ from $2,400</span></div>
+              <ul class="tier-features">
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Unlimited volume & nodes</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Private VPC deployment</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Dedicated Solutions Engineer</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 99.99% Enterprise SLA</li>
+                <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Custom Fine-Tuned Weights</li>
+              </ul>
+            </div>
+            <button class="btn btn-ghost-hero plan-select-btn" data-plan="Enterprise" style="width:100%;height:38px;">Contact Solutions</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. START FOR FREE ONBOARDING MODAL -->
+      <div id="modal-start" class="modal-dialog-panel">
+        <button class="modal-close-btn" aria-label="Close dialog" type="button">✕</button>
+        <span class="modal-tag">Instant Provisioning</span>
+        <h2 class="modal-title">Create Your Agent Workspace</h2>
+        <p class="modal-desc">
+          Deploy your first autonomous operational agent in under two minutes with pre-configured templates.
+        </p>
+
+        <div class="stepper-header">
+          <div id="step-pill-1" class="step-pill active"><span>1</span> Workspace</div>
+          <div id="step-pill-2" class="step-pill"><span>2</span> Integrations</div>
+          <div id="step-pill-3" class="step-pill"><span>3</span> Deploy</div>
+        </div>
+
+        <!-- Step 1 -->
+        <div id="wizard-step-1" class="form-step active">
+          <div class="input-group">
+            <label for="org-name">Company / Workspace Name</label>
+            <input type="text" id="org-name" class="input-text" placeholder="e.g. Acme Logistics, Stripe Operations" value="Acme Enterprise" />
+          </div>
+          <div class="input-group">
+            <label for="work-email">Work Email</label>
+            <input type="email" id="work-email" class="input-text" placeholder="you@company.com" value="ops@acme.corp" />
+          </div>
+          <div class="input-group">
+            <label for="workflow-type">Primary Automation Objective</label>
+            <select id="workflow-type" class="input-text" style="background:#111;cursor:pointer;">
+              <option value="finops">FinOps & ERP Discrepancy Reconciliation</option>
+              <option value="devops">DevOps Auto-Mitigation & Incident Rollback</option>
+              <option value="supply">Supply Chain Freight & Order Rerouting</option>
+              <option value="custom">Custom Internal Tools & Webhooks</option>
+            </select>
+          </div>
+          <div style="display:flex;justify-content:flex-end;margin-top:24px;">
+            <button type="button" id="btn-to-step-2" class="btn btn-solid" style="padding:0 24px;height:42px;">Next: Choose Integrations →</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="wizard-step-2" class="form-step">
+          <label style="display:block;font-size:13.5px;color:#d0d0d0;margin-bottom:12px;">Select Connected Systems</label>
+          <div class="integration-pills-grid">
+            <button type="button" class="integ-btn selected" data-int="Slack">
+              <span>💬 Slack Webhooks</span>
+            </button>
+            <button type="button" class="integ-btn selected" data-int="Postgres">
+              <span>🐘 PostgreSQL DB</span>
+            </button>
+            <button type="button" class="integ-btn selected" data-int="NetSuite">
+              <span>📊 NetSuite / SAP</span>
+            </button>
+            <button type="button" class="integ-btn" data-int="Jira">
+              <span>🎫 Jira ServiceDesk</span>
+            </button>
+            <button type="button" class="integ-btn" data-int="Stripe">
+              <span>💳 Stripe Payments</span>
+            </button>
+            <button type="button" class="integ-btn" data-int="Kafka">
+              <span>⚡ Kafka / RabbitMQ</span>
+            </button>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;margin-top:24px;">
+            <button type="button" id="btn-back-to-step-1" class="btn btn-ghost-hero" style="padding:0 18px;height:40px;">← Back</button>
+            <button type="button" id="btn-to-step-3" class="btn btn-solid" style="padding:0 24px;height:42px;">Deploy Agent Cluster →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div id="wizard-step-3" class="form-step">
+          <div style="text-align:center;padding:10px 0 20px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid #4ade80;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;color:#4ade80;">
+              ✓
+            </div>
+            <h3 style="font-size:20px;font-weight:600;margin-bottom:6px;">Workspace Successfully Provisioned</h3>
+            <p style="font-size:13.5px;color:#9a9a9a;">Your dedicated FBX.ai operational enclave is live and listening.</p>
+          </div>
+
+          <div class="terminal-frame">
+            <div class="terminal-topbar">
+              <span style="font-size:11px;color:#888;">Live Agent Credentials</span>
+            </div>
+            <div class="terminal-body" style="padding:14px;font-size:12px;">
+              <span class="term-muted"># API Key</span><br/>
+              <span class="term-green">FBX_API_KEY</span>="fbx_live_948a204f81c9a05b38f"<br/><br/>
+              <span class="term-muted"># Quickstart Trigger Command</span><br/>
+              <span class="term-blue">curl</span> -X POST https://api.fbx.ai/v1/agents/trigger \<br/>
+              &nbsp;&nbsp;-H <span class="term-yellow">"Authorization: Bearer fbx_live_948a204f81c9a05b38f"</span> \<br/>
+              &nbsp;&nbsp;-d '<span class="term-green">{"task": "reconcile_daily_orders", "mode": "autonomous"}</span>'
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;margin-top:24px;">
+            <button type="button" id="btn-copy-token" class="btn btn-ghost-hero" style="padding:0 18px;height:40px;">Copy Credentials</button>
+            <a href="#demo" class="btn btn-solid" style="padding:0 24px;height:42px;">Test In Simulator →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. SEE IT IN ACTION / LIVE SIMULATOR MODAL -->
+      <div id="modal-demo" class="modal-dialog-panel">
+        <button class="modal-close-btn" aria-label="Close dialog" type="button">✕</button>
+        <span class="modal-tag">Interactive Agent Sandbox</span>
+        <h2 class="modal-title">Live Operational Agent Simulator</h2>
+        <p class="modal-desc">
+          Select an enterprise scenario and observe how FBX.ai autonomously identifies the problem, queries dependent microservices, requests human sign-off, and commits the fix.
+        </p>
+
+        <div class="scenario-picker">
+          <div class="scenario-card active" data-scenario="erp">
+            <h5>💼 ERP Reconciliation</h5>
+            <p>Resolve line-item ledger discrepancy between Stripe & NetSuite.</p>
+          </div>
+          <div class="scenario-card" data-scenario="k8s">
+            <h5>🚨 K8s Node Memory Leak</h5>
+            <p>Diagnose OOM spike, drain cluster node, and rollback deployment.</p>
+          </div>
+          <div class="scenario-card" data-scenario="logistics">
+            <h5>🚚 Logistics Reroute</h5>
+            <p>Detect port congestion and reroute freight carriers dynamically.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-bottom:14px;align-items:center;">
+          <button type="button" id="btn-run-simulation" class="btn btn-solid" style="padding:0 20px;height:40px;">
+            ▶ Run Autonomous Agent
+          </button>
+          <span id="sim-status-badge" style="font-size:12px;color:#9a9a9a;">Ready for invocation</span>
+        </div>
+
+        <div class="terminal-frame">
+          <div class="terminal-topbar">
+            <div class="terminal-dot" style="background:#22c55e;"></div>
+            <span style="font-size:11px;color:#888;">Agent Execution Trace & Verification Stream</span>
+          </div>
+          <div id="sim-log-terminal" class="terminal-body" style="height:220px;font-size:12px;">
+            <span class="term-muted">// Click 'Run Autonomous Agent' to begin operational execution...</span>
+          </div>
+        </div>
+
+        <div id="sim-approval-gate" class="sim-gate-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <div>
+              <strong style="font-size:13px;color:#facc15;">⚠️ Human-in-the-Loop Approval Required:</strong>
+              <div style="font-size:12px;color:#d4d4d4;margin-top:2px;">Proposed Mutation: Apply ledger debit adjustment of $420.50 to SUP_ACME_GLOBAL.</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button type="button" id="btn-approve-gate" class="btn btn-solid" style="height:32px;padding:0 14px;font-size:12px;background:#4ade80;color:#000;border-color:#4ade80;">Approve & Commit</button>
+              <button type="button" id="btn-reject-gate" class="btn btn-ghost-hero" style="height:32px;padding:0 12px;font-size:12px;">Reject</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        // 1. Each .appear -> own animationend -> add is-in (once: true)
+        var appearEls = document.querySelectorAll('.appear');
+        var heroPhoto = document.querySelector('.hero-photo');
+
+        appearEls.forEach(function (el) {
+          el.addEventListener('animationend', function () {
+            el.classList.add('is-in');
+          }, { once: true });
+        });
+
+        if (heroPhoto) {
+          heroPhoto.addEventListener('animationend', function () {
+            heroPhoto.classList.add('is-in');
+          }, { once: true });
+        }
+
+        // 2. JS fallback: after two requestAnimationFrames, if el.getAnimations() has nothing running or finished, add .is-in
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            var hasRunning = false;
+            appearEls.forEach(function (el) {
+              if (typeof el.getAnimations === 'function') {
+                var anims = el.getAnimations();
+                if (anims && anims.some(function (a) { return a.playState === 'running' || a.playState === 'finished'; })) {
+                  hasRunning = true;
+                }
+              }
+            });
+            if (!hasRunning) {
+              appearEls.forEach(function (el) { el.classList.add('is-in'); });
+              if (heroPhoto) heroPhoto.classList.add('is-in');
+            }
+          });
+        });
+
+        // 3. Burger toggles body.menu-open
+        var burger = document.querySelector('.burger');
+        var navLinks = document.querySelectorAll('#site-nav a');
+
+        function openMenu() {
+          document.body.classList.add('menu-open');
+          if (burger) {
+            burger.setAttribute('aria-expanded', 'true');
+            burger.setAttribute('aria-label', 'Close menu');
+          }
+        }
+
+        function closeMenu() {
+          document.body.classList.remove('menu-open');
+          if (burger) {
+            burger.setAttribute('aria-expanded', 'false');
+            burger.setAttribute('aria-label', 'Open menu');
+          }
+        }
+
+        if (burger) {
+          burger.addEventListener('click', function () {
+            if (document.body.classList.contains('menu-open')) {
+              closeMenu();
+            } else {
+              openMenu();
+            }
+          });
+        }
+
+        // 4. Nav links and Escape close the menu
+        navLinks.forEach(function (link) {
+          link.addEventListener('click', function () {
+            closeMenu();
+          });
+        });
+
+        // 5. Resize to (min-width: 901px) closes the mobile menu
+        if (window.matchMedia) {
+          var mql = window.matchMedia('(min-width: 901px)');
+          var handleMedia = function (e) {
+            if (e.matches) {
+              closeMenu();
+            }
+          };
+          if (mql.addEventListener) {
+            mql.addEventListener('change', handleMedia);
+          } else if (mql.addListener) {
+            mql.addListener(handleMedia);
+          }
+        }
+
+        // =========================================================
+        // 6. WORKABLE MODALS & INTERACTIVE ROUTING
+        // =========================================================
+        var modalContainer = document.getElementById('modal-container');
+        var modalPanels = document.querySelectorAll('.modal-dialog-panel');
+
+        function closeAllModals() {
+          if (!modalContainer) return;
+          modalContainer.classList.remove('is-open');
+          modalPanels.forEach(function (p) { p.classList.remove('active'); });
+          if (!document.body.classList.contains('menu-open')) {
+            document.body.style.overflow = '';
+          }
+          if (window.location.hash && window.location.hash !== '#top') {
+            history.replaceState(null, '', window.location.pathname);
+          }
+        }
+
+        function openModal(id) {
+          var target = document.getElementById(id);
+          if (!target || !modalContainer) return;
+          closeMenu();
+          modalPanels.forEach(function (p) { p.classList.remove('active'); });
+          target.classList.add('active');
+          modalContainer.classList.add('is-open');
+          document.body.style.overflow = 'hidden';
+        }
+
+        // Click on close buttons
+        document.querySelectorAll('.modal-close-btn').forEach(function (btn) {
+          btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            closeAllModals();
+          });
+        });
+
+        // Click on backdrop to close
+        modalContainer.addEventListener('click', function (e) {
+          if (e.target === modalContainer) {
+            closeAllModals();
+          }
+        });
+
+        // Escape closes menu & modals
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
+            if (modalContainer && modalContainer.classList.contains('is-open')) {
+              closeAllModals();
+            } else if (document.body.classList.contains('menu-open')) {
+              closeMenu();
+            }
+          }
+        });
+
+        // Map hashes to modal IDs
+        var hashModalMap = {
+          '#benefits': 'modal-benefits',
+          '#how-it-works': 'modal-how-it-works',
+          '#faqs': 'modal-faqs',
+          '#pricing': 'modal-pricing',
+          '#start': 'modal-start',
+          '#demo': 'modal-demo'
+        };
+
+        function handleHash() {
+          var hash = window.location.hash;
+          if (hashModalMap[hash]) {
+            openModal(hashModalMap[hash]);
+          } else if (!hash || hash === '#top') {
+            closeAllModals();
+          }
+        }
+
+        window.addEventListener('hashchange', handleHash);
+
+        // Intercept all links targeting modals
+        document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+          link.addEventListener('click', function (e) {
+            var href = link.getAttribute('href');
+            if (hashModalMap[href]) {
+              e.preventDefault();
+              history.pushState(null, '', href);
+              openModal(hashModalMap[href]);
+            } else if (href === '#top') {
+              closeAllModals();
+            }
+          });
+        });
+
+        // Initial check if opened with hash
+        handleHash();
+
+        // =========================================================
+        // 7. INTERACTIVE ROI CALCULATOR (Benefits Modal)
+        // =========================================================
+        var sliderTasks = document.getElementById('slider-tasks');
+        var sliderTime = document.getElementById('slider-time');
+        var sliderTasksVal = document.getElementById('slider-tasks-val');
+        var sliderTimeVal = document.getElementById('slider-time-val');
+        var calcHours = document.getElementById('calc-hours');
+        var calcSavings = document.getElementById('calc-savings');
+
+        function updateROI() {
+          if (!sliderTasks || !sliderTime) return;
+          var tasks = parseInt(sliderTasks.value, 10);
+          var mins = parseInt(sliderTime.value, 10);
+          sliderTasksVal.textContent = tasks.toLocaleString();
+          sliderTimeVal.textContent = mins + ' mins';
+
+          var totalHours = (tasks * mins) / 60;
+          var autonomousSavedHours = Math.round(totalHours * 0.92);
+          var dollarSavings = Math.round(autonomousSavedHours * 55);
+
+          if (calcHours) calcHours.textContent = autonomousSavedHours.toLocaleString() + ' hrs';
+          if (calcSavings) calcSavings.textContent = '$' + dollarSavings.toLocaleString();
+        }
+
+        if (sliderTasks && sliderTime) {
+          sliderTasks.addEventListener('input', updateROI);
+          sliderTime.addEventListener('input', updateROI);
+          updateROI();
+        }
+
+        // =========================================================
+        // 8. INTERACTIVE ARCHITECTURE PIPELINE TABS (How It Works)
+        // =========================================================
+        var pipelineTabs = document.querySelectorAll('.pipeline-tab-btn');
+        var pipelineCodeView = document.getElementById('pipeline-code-view');
+        var pipelineStatusText = document.getElementById('pipeline-status-text');
+        var pipelineStageTitle = document.getElementById('pipeline-stage-title');
+        var pipelineStageDesc = document.getElementById('pipeline-stage-desc');
+
+        var pipelineContent = {
+          step1: {
+            status: "stage: telemetry_stream_active",
+            title: "Stage 1: Continuous Event Streaming",
+            desc: "Agents hook into your existing Kafka topics, Webhooks, Postgres WAL replication, or REST endpoints to monitor operational health in real time without polling overhead.",
+            code: `<pre><span class="term-blue">// 1. Telemetry Ingestion</span>
+{
+  <span class="term-yellow">"event_id"</span>: <span class="term-green">"evt_849204_erp_sync"</span>,
+  <span class="term-yellow">"source"</span>: <span class="term-green">"NetSuite Enterprise REST Hook"</span>,
+  <span class="term-yellow">"payload"</span>: {
+    <span class="term-yellow">"invoice_num"</span>: <span class="term-green">"INV-2026-9042"</span>,
+    <span class="term-yellow">"supplier_id"</span>: <span class="term-green">"SUP_ACME_GLOBAL"</span>,
+    <span class="term-yellow">"line_items_total"</span>: 18450.00,
+    <span class="term-yellow">"discrepancy_detected"</span>: <span class="term-yellow">true</span>,
+    <span class="term-yellow">"delta"</span>: -420.50
+  },
+  <span class="term-yellow">"ingest_latency_ms"</span>: 14.2
+}</pre>`
+          },
+          step2: {
+            status: "stage: context_graph_traversal",
+            title: "Stage 2: Operational Context Graph Resolution",
+            desc: "The agent queries dynamic relationship embeddings across purchase orders, vendor agreements, and past dispute resolutions to uncover root causes in milliseconds.",
+            code: `<pre><span class="term-blue">// 2. Knowledge Graph Resolution</span>
+{
+  <span class="term-yellow">"nodes_traversed"</span>: [<span class="term-green">"PO_7718"</span>, <span class="term-green">"VendorContract_v3"</span>, <span class="term-green">"WarehouseReceipt_901"</span>],
+  <span class="term-yellow">"root_cause_analysis"</span>: <span class="term-green">"Early payment discount (2%) applied by supplier was omitted in NetSuite line 3."</span>,
+  <span class="term-yellow">"confidence_score"</span>: 0.994,
+  <span class="term-yellow">"recommended_mutation"</span>: <span class="term-green">"POST /v1/ledger/adjustments { debit: 420.50, account: '2010_AccountsPayable' }"</span>
+}</pre>`
+          },
+          step3: {
+            status: "stage: deterministic_verification_gate",
+            title: "Stage 3: Verification & Safety Gates",
+            desc: "Before any mutation occurs, strict policy checks evaluate financial thresholds, user access controls, and rollback capability. Actions exceeding thresholds require sign-off.",
+            code: `<pre><span class="term-blue">// 3. Policy & Approval Gate</span>
+{
+  <span class="term-yellow">"policy_check"</span>: <span class="term-green">"PASS - Within auto-remediation budget ($1,000 threshold)"</span>,
+  <span class="term-yellow">"safety_invariants"</span>: {
+    <span class="term-yellow">"idempotency_key"</span>: <span class="term-green">"idem_inv_9042_adj"</span>,
+    <span class="term-yellow">"rollback_available"</span>: <span class="term-yellow">true</span>,
+    <span class="term-yellow">"approval_mode"</span>: <span class="term-green">"AUTONOMOUS_CONFIRMED"</span>
+  }
+}</pre>`
+          },
+          step4: {
+            status: "stage: atomic_execution_committed",
+            title: "Stage 4: Atomic Execution & Audit Logging",
+            desc: "The adjustment is committed to the target ERP with cryptographic audit proofs, notifications dispatched via Slack, and telemetry logged for continuous model calibration.",
+            code: `<pre><span class="term-blue">// 4. Execution Complete</span>
+{
+  <span class="term-yellow">"status"</span>: <span class="term-green">"SUCCESS_COMMITTED"</span>,
+  <span class="term-yellow">"tx_hash"</span>: <span class="term-green">"0x9f4a187d9931bfa28e1047c"</span>,
+  <span class="term-yellow">"affected_systems"</span>: [<span class="term-green">"NetSuite ERP"</span>, <span class="term-green">"Stripe Billing"</span>, <span class="term-green">"#ops-finance"</span>],
+  <span class="term-yellow">"execution_time_ms"</span>: 642.1
+}</pre>`
+          }
+        };
+
+        pipelineTabs.forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            pipelineTabs.forEach(function (t) { t.classList.remove('active'); });
+            tab.classList.add('active');
+            var key = tab.getAttribute('data-tab');
+            var data = pipelineContent[key];
+            if (data && pipelineCodeView) {
+              pipelineCodeView.innerHTML = data.code;
+              if (pipelineStatusText) pipelineStatusText.textContent = data.status;
+              if (pipelineStageTitle) pipelineStageTitle.textContent = data.title;
+              if (pipelineStageDesc) pipelineStageDesc.textContent = data.desc;
+            }
+          });
+        });
+
+        // =========================================================
+        // 9. FAQ ACCORDION & SEARCH (FAQs Modal)
+        // =========================================================
+        var faqItems = document.querySelectorAll('.faq-item');
+        var faqSearch = document.getElementById('faq-search');
+
+        faqItems.forEach(function (item) {
+          var btn = item.querySelector('.faq-question');
+          if (btn) {
+            btn.addEventListener('click', function () {
+              var isOpen = item.classList.contains('open');
+              faqItems.forEach(function (fi) { fi.classList.remove('open'); });
+              if (!isOpen) item.classList.add('open');
+            });
+          }
+        });
+
+        if (faqSearch) {
+          faqSearch.addEventListener('input', function () {
+            var q = faqSearch.value.toLowerCase().trim();
+            faqItems.forEach(function (item) {
+              var text = item.textContent.toLowerCase();
+              if (text.indexOf(q) !== -1) {
+                item.style.display = '';
+              } else {
+                item.style.display = 'none';
+              }
+            });
+          });
+        }
+
+        // =========================================================
+        // 10. PRICING TOGGLE & PLAN SELECTION (Pricing Modal)
+        // =========================================================
+        var pricingToggle = document.getElementById('pricing-toggle');
+        var proPriceVal = document.getElementById('pro-price-val');
+        var lblMonthly = document.getElementById('lbl-monthly');
+        var lblAnnual = document.getElementById('lbl-annual');
+
+        if (pricingToggle) {
+          pricingToggle.addEventListener('click', function () {
+            var isAnnual = pricingToggle.classList.toggle('annual');
+            if (isAnnual) {
+              if (proPriceVal) proPriceVal.innerHTML = '$392 <span class="tier-period">/ month (billed annually)</span>';
+              if (lblMonthly) { lblMonthly.style.color = '#9a9a9a'; lblMonthly.style.fontWeight = '400'; }
+              if (lblAnnual) { lblAnnual.style.color = '#ffffff'; lblAnnual.style.fontWeight = '600'; }
+            } else {
+              if (proPriceVal) proPriceVal.innerHTML = '$490 <span class="tier-period">/ month</span>';
+              if (lblMonthly) { lblMonthly.style.color = '#ffffff'; lblMonthly.style.fontWeight = '600'; }
+              if (lblAnnual) { lblAnnual.style.color = '#9a9a9a'; lblAnnual.style.fontWeight = '400'; }
+            }
+          });
+        }
+
+        document.querySelectorAll('.plan-select-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            openModal('modal-start');
+          });
+        });
+
+        // =========================================================
+        // 11. START FOR FREE ONBOARDING WIZARD
+        // =========================================================
+        var step1 = document.getElementById('wizard-step-1');
+        var step2 = document.getElementById('wizard-step-2');
+        var step3 = document.getElementById('wizard-step-3');
+        var stepPill1 = document.getElementById('step-pill-1');
+        var stepPill2 = document.getElementById('step-pill-2');
+        var stepPill3 = document.getElementById('step-pill-3');
+
+        var btnToStep2 = document.getElementById('btn-to-step-2');
+        var btnBackToStep1 = document.getElementById('btn-back-to-step-1');
+        var btnToStep3 = document.getElementById('btn-to-step-3');
+        var btnCopyToken = document.getElementById('btn-copy-token');
+
+        if (btnToStep2) {
+          btnToStep2.addEventListener('click', function () {
+            step1.classList.remove('active');
+            step2.classList.add('active');
+            stepPill1.classList.remove('active');
+            stepPill1.classList.add('done');
+            stepPill2.classList.add('active');
+          });
+        }
+
+        if (btnBackToStep1) {
+          btnBackToStep1.addEventListener('click', function () {
+            step2.classList.remove('active');
+            step1.classList.add('active');
+            stepPill2.classList.remove('active');
+            stepPill1.classList.remove('done');
+            stepPill1.classList.add('active');
+          });
+        }
+
+        if (btnToStep3) {
+          btnToStep3.addEventListener('click', function () {
+            btnToStep3.textContent = 'Provisioning Cluster...';
+            btnToStep3.disabled = true;
+            setTimeout(function () {
+              btnToStep3.textContent = 'Deploy Agent Cluster →';
+              btnToStep3.disabled = false;
+              step2.classList.remove('active');
+              step3.classList.add('active');
+              stepPill2.classList.remove('active');
+              stepPill2.classList.add('done');
+              stepPill3.classList.add('active');
+              stepPill3.classList.add('done');
+            }, 800);
+          });
+        }
+
+        document.querySelectorAll('.integ-btn').forEach(function (b) {
+          b.addEventListener('click', function () {
+            b.classList.toggle('selected');
+          });
+        });
+
+        if (btnCopyToken) {
+          btnCopyToken.addEventListener('click', function () {
+            navigator.clipboard.writeText('fbx_live_948a204f81c9a05b38f').then(function () {
+              btnCopyToken.textContent = 'Copied to Clipboard! ✓';
+              setTimeout(function () {
+                btnCopyToken.textContent = 'Copy Credentials';
+              }, 2000);
+            });
+          });
+        }
+
+        // =========================================================
+        // 12. LIVE OPERATIONAL AGENT SIMULATOR (Demo Modal)
+        // =========================================================
+        var scenarioCards = document.querySelectorAll('.scenario-card');
+        var btnRunSim = document.getElementById('btn-run-simulation');
+        var simLogTerminal = document.getElementById('sim-log-terminal');
+        var simStatusBadge = document.getElementById('sim-status-badge');
+        var simApprovalGate = document.getElementById('sim-approval-gate');
+        var btnApproveGate = document.getElementById('btn-approve-gate');
+        var btnRejectGate = document.getElementById('btn-reject-gate');
+
+        var currentScenario = 'erp';
+
+        scenarioCards.forEach(function (card) {
+          card.addEventListener('click', function () {
+            scenarioCards.forEach(function (c) { c.classList.remove('active'); });
+            card.classList.add('active');
+            currentScenario = card.getAttribute('data-scenario');
+            if (simLogTerminal) {
+              simLogTerminal.innerHTML = '<span class="term-muted">// Ready to run scenario: ' + currentScenario.toUpperCase() + '. Click "Run Autonomous Agent"</span>';
+            }
+            if (simApprovalGate) simApprovalGate.classList.remove('visible');
+            if (simStatusBadge) {
+              simStatusBadge.textContent = 'Ready for invocation';
+              simStatusBadge.style.color = '#9a9a9a';
+            }
+          });
+        });
+
+        var simTimers = [];
+        function clearSim() {
+          simTimers.forEach(function (t) { clearTimeout(t); });
+          simTimers = [];
+        }
+
+        function appendLog(line) {
+          if (!simLogTerminal) return;
+          var p = document.createElement('div');
+          p.style.marginBottom = '4px';
+          p.innerHTML = line;
+          simLogTerminal.appendChild(p);
+          simLogTerminal.scrollTop = simLogTerminal.scrollHeight;
+        }
+
+        if (btnRunSim) {
+          btnRunSim.addEventListener('click', function () {
+            clearSim();
+            if (simApprovalGate) simApprovalGate.classList.remove('visible');
+            if (simLogTerminal) simLogTerminal.innerHTML = '';
+            btnRunSim.disabled = true;
+            btnRunSim.textContent = 'Executing...';
+            if (simStatusBadge) {
+              simStatusBadge.textContent = 'Agent running (latency: 42ms)...';
+              simStatusBadge.style.color = '#facc15';
+            }
+
+            appendLog('<span class="term-blue">[00.00s]</span> Initializing FBX.ai agent worker node (VPC-eu-central)...');
+
+            simTimers.push(setTimeout(function () {
+              appendLog('<span class="term-blue">[00.28s]</span> Ingesting telemetry: Discrepancy event flagged from NetSuite ERP (#INV-2026-9042)');
+            }, 300));
+
+            simTimers.push(setTimeout(function () {
+              appendLog('<span class="term-blue">[00.65s]</span> Querying contextual dependency graph: Cross-referencing Stripe ledger with supplier terms...');
+            }, 700));
+
+            simTimers.push(setTimeout(function () {
+              appendLog('<span class="term-green">[01.12s]</span> Root cause resolved: 2% early-pay rebate ($420.50) missing on invoice line 3.');
+              appendLog('<span class="term-yellow">[01.40s]</span> Policy rule check: Action delta requires human confirmation checkpoint.');
+              if (simApprovalGate) simApprovalGate.classList.add('visible');
+              if (simStatusBadge) {
+                simStatusBadge.textContent = 'Awaiting Human Approval Gate';
+                simStatusBadge.style.color = '#facc15';
+              }
+              btnRunSim.disabled = false;
+              btnRunSim.textContent = '▶ Run Autonomous Agent';
+            }, 1200));
+          });
+        }
+
+        if (btnApproveGate) {
+          btnApproveGate.addEventListener('click', function () {
+            if (simApprovalGate) simApprovalGate.classList.remove('visible');
+            appendLog('<span class="term-green">[02.10s]</span> Human approval received: Signed by ops_lead@acme.corp');
+            appendLog('<span class="term-blue">[02.32s]</span> Executing atomic write to NetSuite ERP & dispatching Slack confirmation...');
+            setTimeout(function () {
+              appendLog('<span class="term-green">[02.75s]</span> ✔ TRANSACTION COMMITTED: Ledger balanced. Delta resolved: $0.00. (tx_id: 0x9f4a187d)');
+              if (simStatusBadge) {
+                simStatusBadge.textContent = 'Execution Succeeded (100% Verified)';
+                simStatusBadge.style.color = '#4ade80';
+              }
+            }, 450);
+          });
+        }
+
+        if (btnRejectGate) {
+          btnRejectGate.addEventListener('click', function () {
+            if (simApprovalGate) simApprovalGate.classList.remove('visible');
+            appendLog('<span class="term-yellow">[02.05s]</span> Mutation rejected by human operator. Rolling back state to safe snapshot.');
+            if (simStatusBadge) {
+              simStatusBadge.textContent = 'Action Cancelled by Operator';
+              simStatusBadge.style.color = '#ef4444';
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
